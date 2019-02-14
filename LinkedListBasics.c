@@ -50,6 +50,46 @@ void TravereseList(struct Node *head)
     }
 }
 
+void RevereseList(struct Node** head)
+{
+    struct Node *prev=NULL;
+    struct Node *current=*head;
+    struct Node *next = NULL;
+
+    while(current != NULL)
+    {
+        next = current->next;
+        current->next = prev;
+        prev=current;
+        current = next;
+    }
+
+    *head = prev;
+
+}
+
+void RecurssiveReverse(struct Node** head)
+{
+     struct Node* first;
+     struct Node* rest;
+     if(head==NULL)
+        return;
+    
+     first = *head;
+     rest = first->next;
+
+     if(rest==NULL)
+        return;
+     RecurssiveReverse(&rest);
+
+     first->next->next = first;
+
+     first->next = NULL;
+
+     *head = rest;
+
+     
+}
 int main()
 {
     struct Node* head;
@@ -58,5 +98,12 @@ int main()
     PrependNode(&head,10);
     AppendNode(&head,25);
     AppendNode(&head,30);
+    //DeleteNode(&head,30);
     TravereseList(head);
+    RevereseList(&head);
+
+    TravereseList(head);
+    RecurssiveReverse(&head);
+    TravereseList(head);
+
 }
